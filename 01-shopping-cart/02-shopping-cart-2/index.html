@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>购物车</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <div id="app">
+    <template v-if="list.length">
+      <table class="table">
+        <caption>购物车</caption>
+        <thead class="thead-light">
+          <tr class="bg-primary">
+            <th>商品种类</th>
+            <th>
+              全选
+              <input type="checkbox" v-model="allChecked">
+            </th>
+            <th>#</th>
+            <th>商品名称</th>
+            <th>商品单价</th>
+            <th>购买数量</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <template v-for="(item, index) of list">
+            <tr v-for="(subItem, subIndex) of item.subList">
+              <td 
+                :rowspan="item.subList.length"
+                v-if="!subIndex">
+                {{ item.classify }}
+              </td>
+              <td>
+                <input v-model="subItem.isChecked" type="checkbox">
+              </td>
+              <td>
+                {{ getIndex(index, subIndex) }}
+              </td>
+              <td>
+                {{ subItem.name }}
+              </td>
+              <td>
+                {{ subItem.price }}
+              </td>
+              <td>
+                <button
+                  :disabled="subItem.count === 1"
+                  class="btn btn-sm btn-primary"
+                  @click="handleReduce(index, subIndex)"
+                >-</button>
+                {{ subItem.count }}
+                <button
+                  class="btn btn-sm btn-primary"
+                  @click="handleAdd(index, subIndex)"
+                >+</button>
+              </td>
+              <td>
+                <button
+                  class="btn btn-danger"
+                  @click="handleRemove(index, subIndex)"
+                ><i class="fas fa-trash-alt"></i> 删除</button>
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+      <div class="alert alert-primary">总价: ¥ {{ totalPrice }}</div>
+    </template>
+    <div class="alert alert-primary" v-else>购物车空空如也!</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="./index.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+body {
+  padding: 20px;
+}
+
+.table {
+  box-shadow: 0 4px 4px rgba(100, 100, 100, 0.3);
+}
+thead {
+  color: #fff;
+}
+caption {
+  caption-side: top;
+  text-align: center;
+}
+.item-count {
+  padding: 0 10px;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>购物车</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <div id="app">
+    <template v-if="list.length">
+      <table class="table table-hover">
+        <caption>购物车</caption>
+        <thead class="thead-light">
+          <tr class="bg-primary">
+            <th>
+              全选
+              <input type="checkbox" v-model="allChecked">
+            </th>
+            <th>#</th>
+            <th>商品名称</th>
+            <th>商品单价</th>
+            <th>购买数量</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) of list">
+            <td>
+              <input type="checkbox" v-model="item.isChecked">
+            </td>
+            <td>{{ index + 1 }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.price }}</td>
+            <td>
+              <button
+                class="btn btn-sm btn-primary"
+                @click="handleReduce(index)"
+                :disabled="item.count === 1"
+              >-</button>
+              <span class="item-count">{{ item.count }}</span>
+              <button
+                class="btn btn-sm btn-primary"
+                @click="handleAdd(index)"
+              >+</button>
+            </td>
+            <td>
+              <button 
+                class="btn btn-danger"
+                @click="handleRemove(index)"
+              >移除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="alert alert-primary">总价: ¥ {{ totalPrice }}</div>
+    </template>
+    <div class="alert alert-primary" v-else>购物车空空如也!</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="./index.js"></script>
+</body>
+</html>
