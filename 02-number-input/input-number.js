@@ -10,6 +10,8 @@ Vue.component('input-number', {
         class="form-control"
         :value="currentValue"
         @change="handleChange"
+        @keyup.up="handlePlus"
+        @keyup.down="handleMinus"
       >
       <div class="input-group-append">
         <button
@@ -37,6 +39,10 @@ Vue.component('input-number', {
       type: Number,
       default: -Infinity
     },
+    step: {
+      type: Number,
+      default: 1
+    },
     value: {
       type: Number,
       default: 0
@@ -54,11 +60,11 @@ Vue.component('input-number', {
   methods: {
     handlePlus() {
       if (this.currentValue >= this.max) return;
-      this.currentValue++;
+      this.currentValue += this.step;
     },
     handleMinus() {
       if (this.currentValue <= this.min) return;
-      this.currentValue--;
+      this.currentValue -= this.step;
     },
     updateValue(val) {
       val = val > this.max ? this.max : val;
