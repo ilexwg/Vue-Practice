@@ -1,0 +1,14 @@
+.main {
+  width: 300px;
+  margin: 40px auto;
+}
+
+.btn {
+  width: 100%;
+}
+
+.dropdown {
+  width: 100%;
+  margin-top: 6px;
+  box-shadow: 0 3px 3px rgba(100, 100, 100, 0.5);
+}
