@@ -11,7 +11,12 @@
 </head>
 <body>
   <div id="app">
-
+    <div class="message">
+      <v-input v-model="username"></v-input>
+      <v-textarea v-model="message" ref="message"></v-textarea>
+      <button @click="handleSend">发布</button>
+    </div>
+    <list :list="list" @reply="handleReply"></list>
   </div>
   
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
